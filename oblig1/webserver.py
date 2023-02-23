@@ -53,15 +53,19 @@ while True:
         """
 
         # Send the content of the requested file to the client
-    for i in range(0, len(outputdata)):
-        connectionSocket.send(outputdata[i].encode())
-        connectionSocket.send("\r\n".encode())
-        connectionSocket.close()
+
+        for i in range(0, len(outputdata)):
+            connectionSocket.send(outputdata[i].encode())
+            connectionSocket.send("\r\n".encode())
+            connectionSocket.close()
     except IOError:
         # Send response message for file not found
         connectionSocket.close()
+        connectionSocket.send('HTTP/1.1 404 Not Found\r\n'.encode())
+        connectionSocket.send('Content-Type: text/html\r\n'.encode())
+        connectionSocket.send('\r\n'.encode())
+        connectionSocket.send('<html><body><h1>404 Not Found</h1></body></html>\r\n'.encode())
 
-        # Write your code here
-        # End of your code
+
 serverSocket.close()
 sys.exit()  # Terminate the program after sending the corresponding da
