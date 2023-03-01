@@ -18,7 +18,7 @@ if len(sys.argv) != 4:
 sys.argv is a list in Python that contains the command-line arguments passed to the script. When a Python script is 
 executed, the command-line arguments passed are stored in the sys.argv list.
 """
-serverHost = '127.0.0.1' if len(sys.argv) < 2 else sys.argv[1]
+serverHost = sys.argv[1]
 serverPort = int(sys.argv[2])
 filename = sys.argv[3]
 
@@ -29,22 +29,23 @@ clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverHost, serverPort))
 
 # Sending the HTTP get request to the server
-request = "GET /" + filename + " HTTP/1.1\r+nHost: " + serverHost + "\r\n\r\n"
+request = "GET /" + filename + " HTTP/1.1\r\nHost: " + serverHost + "\r\n\r\n"
 clientSocket.send(request.encode())
 
 # Receiving HTTP response form server
 response = clientSocket.recv(2048)
 
 output = ""
-
+"""
 while len(response) > 0:
     response = clientSocket.recv(2048).decode()
     output += response
 print(output)
-
+"""
 
 # Printing message
 print(response.decode())
 
 # Closing socket
 clientSocket.close()
+sys.exit()
