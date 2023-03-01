@@ -24,7 +24,7 @@ while True:
 
     try:
         # Receive the request message from the client
-        message = connectionSocket.recv(1024).decode()
+        message = connectionSocket.recv(2048).decode()
         filename = message.split()[1][1:]
         #f = open(filename[1:])
         # the name of the file includes "/", to remove it, [1:] is used to slice the file name from the second character
@@ -58,11 +58,11 @@ while True:
             """
     except IOError:
         # Send response message for file not found
-        connectionSocket.close()
         connectionSocket.send('HTTP/1.1 404 Not Found\r\n'.encode())
         connectionSocket.send('Content-Type: text/html\r\n'.encode())
         connectionSocket.send('\r\n'.encode())
         connectionSocket.send('<html><body><h1>404 Not Found</h1></body></html>\r\n'.encode())
+        connectionSocket.close()
 
 serverSocket.close()
 sys.exit()  # Terminate the program after sending the corresponding da
