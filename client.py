@@ -35,14 +35,6 @@ clientSocket.send(request.encode())
 # Receiving HTTP response form server
 response = clientSocket.recv(2048)
 
-output = ""
-"""
-while len(response) > 0:
-    response = clientSocket.recv(2048).decode()
-    output += response
-print(output)
-"""
-
 # Printing message
 print(response.decode())
 
