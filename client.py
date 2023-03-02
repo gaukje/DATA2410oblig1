@@ -29,8 +29,25 @@ clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverHost, serverPort))
 
 # Sending the HTTP get request to the server
-request = "GET /" + filename + " HTTP/1.1\r\nHost: " + serverHost + "\r\n\r\n"
-clientSocket.send(request.encode())
+# Request all encoded messages from the server
+while True:
+    message = "get"
+    clientSocket.sendall(message.encode())
+
+    # Receive the response from the server
+    response = clientSocket.recv(1024).decode()
+
+    # Check if there are no more messages
+    if response == "no more messages":
+        break
+
+    # Print the encoded message
+    print(response)
+
+clientSocket.close()
+#request += "GET /" + filename + " HTTP/1.1\r\nHost: " + serverHost + "\r\n\r\n"
+
+#clientSocket.send(request.encode())
 
 # Receiving HTTP response form server
 response = clientSocket.recv(2048)
