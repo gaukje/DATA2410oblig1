@@ -50,8 +50,8 @@ while True:
         connectionSocket.send('<html><body><h1>404 Not Found</h1></body></html>\r\n'.encode())
         connectionSocket.close()
 
-"""
-The server program originally looked like this for task 1, but I modified it for task 3. The entire program is 
-hence similar to the webserver.py file with similar logic and variables. You will find more detailed comments in
-webserver.py. 
-"""
+    """
+    The server program originally looked like this for task 1, but I modified it for task 3. The entire program is 
+    hence similar to the webserver.py file with similar logic and variables. You will find more detailed comments in
+    webserver.py. 
+    """
