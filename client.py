@@ -11,13 +11,12 @@ is an input command format to run the client. client.py server host server port 
 import sys
 from socket import*
 
+# Checking if the correct amount of input arguments is provided
 if len(sys.argv) != 4:
-    print("Usage: python client.py <serverName> <serverPort> <fileName>")
+    print("Usage: python client.py <host> <port> <fileName>")
     sys.exit()
-"""
-sys.argv is a list in Python that contains the command-line arguments passed to the script. When a Python script is 
-executed, the command-line arguments passed are stored in the sys.argv list.
-"""
+
+# Assigning variablies to command line arguments
 serverHost = sys.argv[1]
 serverPort = int(sys.argv[2])
 filename = sys.argv[3]
@@ -25,7 +24,7 @@ filename = sys.argv[3]
 # TCP client socket
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
-# Connecting to server
+# Connecting to server with predefined host and port
 clientSocket.connect((serverHost, serverPort))
 
 # Sending the HTTP get request to the server
@@ -33,13 +32,13 @@ request = "GET /" + filename + " HTTP/1.1\r\nHost: " + serverHost + "\r\n\r\n"
 clientSocket.send(request.encode())
 
 # Receiving HTTP response form server
-message = b''
-while True:
+message = b''       # byte string
+while True:         # Loop that receives data
     data = clientSocket.recv(2048)
     if not data:
         # No more data ro receive
         break
-    message += data
+    message += data         # Appending data to message
 
 # Printing message
 print(message.decode())
