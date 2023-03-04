@@ -36,7 +36,7 @@ def handle_requests(connectionSocket):
             connectionSocket.send(outputdata[i:i + 1])
             # Loop that sends characters from outputdata one byte at a time from 0 to the length of outputdata
 
-    except IOError:
+    except IOError:     # Exception handling if the program can't find file that is provided on browser.
         # Send response message for file not found
         connectionSocket.send('HTTP/1.1 404 Not Found\r\n'.encode())   #HTTP response status if there are errors trying to run the code above
         connectionSocket.send('Content-Type: text/html\r\n'.encode())
